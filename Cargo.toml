@@ -1,0 +1,13 @@
+[package]
+name = "tenuki-ui"
+version = "0.1.0"
+authors = ["T. Okubo <t.okubo.rx78+github@gmail.com>"]
+
+[lib]
+name = "tenuki_ui"
+crate-type = ["rlib"]
+
+[dependencies]
+sdl2 = "*"
+sdl2_ttf = "*"
+lazy_static = "*"
