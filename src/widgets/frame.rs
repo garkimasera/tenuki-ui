@@ -13,29 +13,16 @@ pub struct Frame {
     child: RefCell<Option<AnyWidget>>,
 }
 
-// pub struct FrameBuilder<'a> {
-// }
-
-// impl<'a> FrameBuilder<'a> {
-//     pub fn new(ui: &'a UIContext) -> FrameBuilder<'a> {
-//         FrameBuilder{
-//             ui: ui
-//         }
-//     }
-
-//     pub fn finish(self) -> Rc<Frame> {
-//         let frame = Frame::new(self.ui);
-        
-//         let frame = Rc::new(frame);
-//         self.ui.add_frame(frame.clone());
-//         frame
-//     }
-// }
-
 impl Frame {
-    pub fn new() -> Rc<Frame> {
+    pub fn new(title: &str, width: u32, height: u32, resizable: bool) -> Rc<Frame> {
         
-        let window = uicontext::create_window("Tenuki-ui Test", 300, 300).unwrap();
+        let window = match uicontext::create_window(title, width, height, false) {
+            Ok(w) => w,
+            Err(e) => {
+                println!("Frame creation failed.\n{}", e);
+                panic!();
+            },
+        };
         let renderer = window.renderer().build().unwrap();
 
         let frame = Rc::new(Frame{

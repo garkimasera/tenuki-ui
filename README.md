@@ -14,7 +14,7 @@ use ui::theme::load_theme_default;
 fn main() {
     uicontext::init(load_theme_default("path_to_a_font_file.ttf").unwrap()).unwrap();
     
-    let frame = widgets::Frame::new();
+    let frame = widgets::Frame::new("tenuki-ui test", 300, 300, true);
     let vbox = widgets::VBox::new();
     let label = widgets::Label::new("Click Button!");
     vbox.pack(widgets::CenteringBox::new(label.clone()), true);

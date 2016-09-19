@@ -120,16 +120,16 @@ pub fn init(theme_loader: ThemeLoader) -> Result<(), String> {
     })
 }
 
-pub fn create_window(title: &str, width: u32, height: u32)
+pub fn create_window(
+    title: &str, width: u32, height: u32, resizable: bool)
                      -> Result<SdlWindow, ::sdl2::video::WindowBuildError> {
     UI_CONTEXT.with(|uicontext| {
         match *uicontext.borrow() {
             Some(ref uicontext) => {
-                let window = uicontext.video_subsystem.window(title, width, height)
-                    .position_centered()
-                    .resizable()
-                    .build();
-                window
+                let mut window_builder = uicontext.video_subsystem.window(title, width, height);
+                if resizable { window_builder.resizable(); }
+                
+                window_builder.build()
             },
             None => { panic!("Creating frame before uicontext initialization"); },
         }
